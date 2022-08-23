@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/Layout"
+import Home from "./pages/Home"
+import Products from "./pages/Products"
+import SigIn from "./pages/SignIn"
+import TokenContext from "./TokenContext"
+import { useState } from "react"
 
 function App() {
+  const [token, setToken] = useState(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <TokenContext.Provider value={{token, setToken}}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/signin" element={<SigIn />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </TokenContext.Provider>
+  )
 }
 
-export default App;
+export default App
