@@ -1,8 +1,10 @@
 import { useContext } from "react"
+import { Navigate } from "react-router-dom"
 import TokenContext from "../TokenContext"
 
 export default function SigIn() {
 	const {setToken} = useContext(TokenContext)
+	const navigate = Navigate
 
 	function submitHandler(event) {
 		event.preventDefault()
@@ -17,7 +19,10 @@ export default function SigIn() {
 			})
 		})
 			.then(res => res.json())
-			.then(data => setToken(data.token))
+			.then(data => {
+				setToken(data.token)
+				navigate("/")
+			})
 	}
 	
 	return (

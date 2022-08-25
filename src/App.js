@@ -13,11 +13,11 @@ function App() {
     <TokenContext.Provider value={{token, setToken}}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          {token ? <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/signin" element={<SigIn />} />
-          </Route>
+          </Route> :
+          <Route path="/" element={<SigIn />} />}
         </Routes>
       </BrowserRouter>
     </TokenContext.Provider>
